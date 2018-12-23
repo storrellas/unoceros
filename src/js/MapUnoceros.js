@@ -17,6 +17,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
+import gpx from 'gpx-for-runners';
 
 const Map = ReactMapboxGl({
   accessToken: "pk.eyJ1Ijoic3RvcnJlbGxhcyIsImEiOiJjaWp6bHQ5Y3kwMDU4dmNtMHgzb2NhNmU5In0.M3jJSPh7KUT0QDSd7Bn3Rg"
@@ -72,6 +73,8 @@ class MapUnoceros extends React.Component {
         console.log("-- File Content --")
         console.log(content);
         // … do something with the 'content' …
+        const gpx = new gpx( content );
+        console.log(gpx.trackpoints)
     }
     fileReader.readAsText(event.target.files[0])
   }
