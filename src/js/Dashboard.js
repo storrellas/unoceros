@@ -174,8 +174,8 @@ class Dashboard extends React.Component {
 
         <Router>
           <div>
-            <Route path="/" exact component={Charts} />
-            <Route path="/map/" component={MapUnoceros} />
+            <Route path="/" exact component={MapUnoceros} />
+            <Route path="/chart/" component={Charts} />
           </div>
         </Router>
       </div>

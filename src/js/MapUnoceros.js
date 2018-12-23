@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -15,13 +16,6 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import SimpleLineChart from './SimpleLineChart';
-import SimpleTable from './SimpleTable';
-
-// import "../css/MapUnoceros.css";
-// import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
-
-// ES6
 import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 
 const Map = ReactMapboxGl({
@@ -45,6 +39,9 @@ const styles = theme => ({
   mapContainer: {
     height: 320,
     width: 220,
+  },
+  input: {
+  display: 'none',
   }
 });
 
@@ -55,42 +52,73 @@ class MapUnoceros extends React.Component {
     this.state = {
       fitBounds: undefined,
       center: [-0.481747846041145, 51.3233379650232],
-      zoom: [3],
+      zoom: [10],
       station: undefined,
       stations: {}
     };
   }
 
+handleInputFile(event){
+  console.log("Inputfile")
+  console.log(event)
+  console.log(event.target.value)
+}
 
   render() {
     const { classes } = this.props;
 
     const position = []
     const { fitBounds, center, zoom, stations, station } = this.state;
+
+    const mappedRoute = [
+      [-0.481747846041145, 51.3233379650232],
+      [-0.472757846041245, 51.3233379650232],
+      [-0.463767846041345, 51.3233379650232],
+      [-0.454777846041445, 51.3233379650232]
+    ]
+
+    const lineLayout = {
+      'line-cap': 'round',
+      'line-join': 'round'
+    };
+
+    const linePaint = {
+      'line-color': '#4790E5',
+      'line-width': 12
+    };
+
+
     return (
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Typography variant="h4" gutterBottom component="h2">
-            Map Here
+            GFX Reader
           </Typography>
           <Map
             style="mapbox://styles/mapbox/streets-v9"
             zoom={zoom}
-            center={center}
+            center={mappedRoute[0]}
             containerStyle={{
               height: "400px",
               width: "800px"
             }}>
-              <Layer
-                type="symbol"
-                id="marker"
-                layout={{ "icon-image": "harbor-15" }}>
-                <Feature coordinates={[-0.481747846041145, 51.3233379650232]}/>
-                <Feature coordinates={[-0.472757846041245, 51.3233379650232]}/>
-                <Feature coordinates={[-0.463767846041345, 51.3233379650232]}/>
-                <Feature coordinates={[-0.454777846041445, 51.3233379650232]}/>
-              </Layer>
+              <Layer type="line" layout={lineLayout} paint={linePaint}>
+              <Feature coordinates={mappedRoute} />
+            </Layer>
           </Map>
+
+          <input
+            className={classes.input}
+            id="contained-button-file"
+            multiple
+            type="file"
+            onChange={this.handleInputFile.bind(this)}
+          />
+          <label htmlFor="contained-button-file">
+            <Button variant="contained" component="span" className={classes.button}>
+              Upload
+            </Button>
+          </label>
         </main>
     );
   }
