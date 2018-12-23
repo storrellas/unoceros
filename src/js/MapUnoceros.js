@@ -58,11 +58,23 @@ class MapUnoceros extends React.Component {
     };
   }
 
-handleInputFile(event){
-  console.log("Inputfile")
-  console.log(event)
-  console.log(event.target.value)
-}
+  handleOnReadEnd(){
+    const content = fileReader.result;
+    console.log(content)
+  }
+
+  handleInputFile(event){
+    const file = event.target.files[0]
+
+    let fileReader = new FileReader()
+    fileReader.onloadend = function(){
+        const content = fileReader.result;
+        console.log("-- File Content --")
+        console.log(content);
+        // … do something with the 'content' …
+    }
+    fileReader.readAsText(event.target.files[0])
+  }
 
   render() {
     const { classes } = this.props;
