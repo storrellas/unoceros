@@ -24,16 +24,17 @@ module.exports = {
     publicPath: "/dist/",
     filename: "bundle.js"
   },
+    node: { fs: 'empty' },
   devServer: {
     contentBase: path.join(__dirname, "public/"),
     port: 8080,
     publicPath: "http://localhost:8080/dist/",
     historyApiFallback: true,
     disableHostCheck: true,
-    hotOnly: true,
+    //hotOnly: true,
     host: '0.0.0.0',
     watchOptions: {
-      poll: true
+      poll: 1000
     }
   },
   plugins: [new webpack.HotModuleReplacementPlugin()]

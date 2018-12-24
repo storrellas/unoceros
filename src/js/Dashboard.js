@@ -20,6 +20,17 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import PeopleIcon from '@material-ui/icons/People';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import LayersIcon from '@material-ui/icons/Layers';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -87,7 +98,7 @@ const styles = theme => ({
   },
   media: {
     height: 0,
-    paddingTop: '56.25%', // 16:9,
+    paddingTop: '100%',
     marginTop:'30'
   }
 });
@@ -112,7 +123,9 @@ class Dashboard extends React.Component {
     console.log( sessionStorage.getItem("webserver") )
 
     return (
+      <Router>
       <div className={classes.root}>
+
         <CssBaseline />
         <AppBar
           position="absolute"
@@ -163,22 +176,35 @@ class Dashboard extends React.Component {
 
           <CardMedia
             className={classes.media}
-            image="https://bdnlab.org/wp-content/uploads/2018/07/sec2sky.jpg"
+            image="https://media.licdn.com/dms/image/C4E0BAQHo7aegLXztDQ/company-logo_200_200/0?e=2159024400&v=beta&t=VJen9iDR1C-NefZN3L_fJHVQrTvK4vlCpKRjiV-gSEw"
             title="Sec2Sky"
           />
 
-          <List>{mainListItems}</List>
+          <List>
+            <ListItem button>
+                <ListItemIcon>
+                  <LayersIcon />
+                </ListItemIcon>
+                <Link to="/"><ListItemText primary="Map" /></Link>
+              </ListItem>
+              <ListItem button>
+                <ListItemIcon>
+                  <BarChartIcon />
+                </ListItemIcon>
+                <Link to="/chart/"><ListItemText primary="Charts" /></Link>
+              </ListItem>
+          </List>
+          {/*
           <Divider />
           <List>{secondaryListItems}</List>
+          */}
         </Drawer>
 
-        <Router>
-          <div>
             <Route path="/" exact component={MapUnoceros} />
             <Route path="/chart/" component={Charts} />
-          </div>
-        </Router>
+
       </div>
+      </Router>
     );
   }
 }
