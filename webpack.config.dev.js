@@ -24,7 +24,6 @@ module.exports = {
     publicPath: "/dist/",
     filename: "bundle.js"
   },
-    node: { fs: 'empty' },
   devServer: {
     contentBase: path.join(__dirname, "public/"),
     port: 8080,
